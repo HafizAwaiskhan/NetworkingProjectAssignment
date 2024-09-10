@@ -41,6 +41,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gsonConverter)
     implementation(libs.loggingInterceptor)
+    implementation(libs.coroutinesCore)
+    implementation(libs.okhttp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

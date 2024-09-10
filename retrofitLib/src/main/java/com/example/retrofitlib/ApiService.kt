@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("search")
-    fun <T> search(
+    suspend fun <T> search(
         @Query("query") query: String,
         @Query("include_adult") includeAdult: Boolean = false,
         @Query("language") language: String = "en-US",

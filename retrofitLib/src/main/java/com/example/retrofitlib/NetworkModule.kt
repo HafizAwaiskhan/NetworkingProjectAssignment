@@ -41,7 +41,6 @@ object NetworkModule {
             .build()
     }
 
-    // Function to create a service class with the dynamic BASE_URL and token
     fun <T> createService(serviceClass: Class<T>, baseUrl: String, token: String? = null): T {
         return provideRetrofit(baseUrl, token).create(serviceClass)
     }

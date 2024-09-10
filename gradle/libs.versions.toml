@@ -10,6 +10,8 @@ material = "1.12.0"
 retrofit = "2.9.0"
 gsonConverter = "2.9.0"
 loggingInterceptor = "4.9.1"
+okhttp = "5.0.0-alpha.2"
+coroutinesCore = "1.7.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -21,6 +23,9 @@ material = { group = "com.google.android.material", name = "material", version.r
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 gsonConverter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "gsonConverter" }
 loggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+coroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
