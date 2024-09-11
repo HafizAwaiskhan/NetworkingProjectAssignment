@@ -11,19 +11,17 @@ object NetworkingLibrary {
         page: Int = 1,
         baseUrl: String,
         token: String? = null
-    ): Result<ApiResponse<T>> {
+    ):  ApiResponse<T> {
         val apiService = NetworkModule.createService(ApiService::class.java, baseUrl, token)
         return try {
             val response = apiService.search<T>(query, includeAdult, language, page).execute()
             if (response.isSuccessful) {
-                response.body()?.let {
-                    Result.Success(it)
-                } ?: Result.Error(NullPointerException("Response body is null"))
+                response.body() ?: throw NullPointerException("Response body is null")
             } else {
-                Result.Error(HttpException(response))
+                throw HttpException(response)
             }
         } catch (e: Exception) {
-            Result.Error(e)
+            throw e
         }
     }
 }
