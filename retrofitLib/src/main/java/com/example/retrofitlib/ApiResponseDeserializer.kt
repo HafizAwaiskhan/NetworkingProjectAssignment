@@ -1,6 +1,7 @@
 package com.example.retrofitlib
 
 import com.google.gson.*
+import com.google.gson.reflect.TypeToken
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -12,13 +13,14 @@ class ApiResponseDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
     ): ApiResponse<T> {
         val jsonObject = json.asJsonObject
 
+        val resultsType = TypeToken.getParameterized(List::class.java, (typeOfT as ParameterizedType).actualTypeArguments[0]).type
+        val results = context.deserialize<T>(
+            jsonObject.get("results"),
+            resultsType
+        ) ?: throw NullPointerException("Data is null")
         val status = jsonObject.get("status")?.asString ?: "unknown"
         val message = jsonObject.get("message")?.asString ?: "no message"
-        val data = context.deserialize<T>(
-            jsonObject.get("data"),
-            (typeOfT as ParameterizedType).actualTypeArguments[0]
-        ) ?: throw NullPointerException("Data is null")
 
-        return ApiResponse(data, status, message)
+        return ApiResponse(results, status, message)
     }
 }
