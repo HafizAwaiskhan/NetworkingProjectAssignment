@@ -12,10 +12,12 @@ class ApiResponseDeserializer<T> : JsonDeserializer<ApiResponse<T>> {
     ): ApiResponse<T> {
         val jsonObject = json.asJsonObject
 
-        // Deserialize the fields of ApiResponse
-        val status = jsonObject.get("status").asString
-        val message = jsonObject.get("message").asString
-        val data = context.deserialize<T>(jsonObject.get("data"), (typeOfT as ParameterizedType).actualTypeArguments[0])
+        val status = jsonObject.get("status")?.asString ?: "unknown"
+        val message = jsonObject.get("message")?.asString ?: "no message"
+        val data = context.deserialize<T>(
+            jsonObject.get("data"),
+            (typeOfT as ParameterizedType).actualTypeArguments[0]
+        ) ?: throw NullPointerException("Data is null")
 
         return ApiResponse(data, status, message)
     }
