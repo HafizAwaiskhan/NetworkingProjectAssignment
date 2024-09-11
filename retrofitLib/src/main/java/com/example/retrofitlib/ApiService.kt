@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-    @GET("search")
+    @GET("multi")
     suspend fun <T> search(
         @Query("query") query: String,
         @Query("include_adult") includeAdult: Boolean = false,
