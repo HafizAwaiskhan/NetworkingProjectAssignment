@@ -14,12 +14,7 @@ object NetworkingLibrary {
     ):  ApiResponse<T> {
         val apiService = NetworkModule.createService(ApiService::class.java, baseUrl, token)
         return try {
-            val response = apiService.search<T>(query, includeAdult, language, page).execute()
-            if (response.isSuccessful) {
-                response.body() ?: throw NullPointerException("Response body is null")
-            } else {
-                throw HttpException(response)
-            }
+            apiService.search(query, includeAdult, language, page)
         } catch (e: Exception) {
             throw e
         }

@@ -1,5 +1,6 @@
 package com.example.retrofitlib
 
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -34,10 +35,14 @@ object NetworkModule {
             .readTimeout(30, TimeUnit.SECONDS)
             .build()
 
+        val gson = GsonBuilder()
+            .registerTypeAdapter(ApiResponse::class.java, ApiResponseDeserializer<Any>())
+            .create()
+
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 
